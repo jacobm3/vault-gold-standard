@@ -84,4 +84,6 @@ vault write auth/azure/role/apache-jacobm-azure-hashidemos-io \
    token_ttl=24h \
    token_max_ttl=168h
 
+vault secrets enable -version=2 kv
+vault kv put kv/my-secret my-value=s3cr3t
 
