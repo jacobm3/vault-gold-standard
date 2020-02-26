@@ -71,6 +71,7 @@ export VAULT_NAMESPACE=geo-us/ops
 
 vault auth enable azure
 
+# https://www.vaultproject.io/api/auth/azure/index.html#parameters-1
 vault write auth/azure/config \
    tenant_id=$ARM_TENANT_ID \
    resource=https://management.azure.com/ \
