@@ -64,3 +64,24 @@ vault token create -namespace=geo-us/ops -policy=pki-issuer-apache-jacobm-azure-
 
 vault write -namespace=geo-us/ops pki/issue/hashicorp-test-dot-com \
     common_name=app1.hashicorp-test.com
+
+
+# MSI
+export VAULT_NAMESPACE=geo-us/ops
+
+vault auth enable azure
+
+vault write auth/azure/config \
+   tenant_id=$ARM_TENANT_ID \
+   resource=https://management.azure.com/ \
+   client_id=$ARM_CLIENT_ID \
+   client_secret=$ARM_CLIENT_SECRET
+
+vault write auth/azure/role/apache-jacobm-azure-hashidemos-io \
+   policies="pki-issuer-apache-jacobm-azure-hashidemos-io" \
+   bound_subscription_ids=$ARM_SUBSCRIPTION_ID \
+   bound_resource_groups=jmartinson-rg \
+   token_ttl=24h \
+   token_max_ttl=168h
+
+
